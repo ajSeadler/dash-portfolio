@@ -11,7 +11,7 @@ const Profile = () => {
         className="rounded-sm w-44"
         dismissOnClick={false}
         renderTrigger={() => (
-          <span className="h-10 w-10 hover:text-primary hover:bg-lightprimary rounded-full flex justify-center items-center cursor-pointer group-hover/menu:bg-lightprimary group-hover/menu:text-primary">
+          <span className="h-10 w-10 hover:text-primary bg-secondary rounded-full flex justify-center items-center cursor-pointer group-hover/menu:bg-primary group-hover/menu:text-primary">
             <img src={user1} alt="logo" height="35" width="35" className="rounded-full" />
           </span>
         )}

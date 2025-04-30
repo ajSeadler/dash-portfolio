@@ -1,95 +1,57 @@
-import { Label, TextInput, Select, Button } from "flowbite-react"
+import { Icon } from '@iconify/react';
+import { Card } from 'flowbite-react';
 
+const careerData = [
+  {
+    role: 'Telecommunication Technician',
+    company: 'SCC',
+    duration: '2017 – 2019',
+    description:
+      'Installed and maintained voice and data cabling systems for business clients, ensuring reliable network infrastructure.',
+    icon: 'solar:case-outline',
+  },
+  {
+    role: 'Bookseller',
+    company: 'Half Price Books',
+    duration: '2020',
+    description:
+      'Assisted customers with product selection and maintained inventory organization in a fast-paced retail environment.',
+    icon: 'solar:book-bold',
+  },
+  {
+    role: 'Technical Support Specialist',
+    company: 'Community Pathways, LLC',
+    duration: '2021 – Present',
+    description:
+      'Provide daily IT support for internal systems, troubleshoot hardware/software issues, and maintain secure access for remote teams.',
+    icon: 'solar:monitor-smartphone-outline',
+  },
+];
 
 const BasicForm = () => {
   return (
-    <div className="rounded-xl dark:shadow-dark-md shadow-md bg-white dark:bg-darkgray p-6 relative w-full break-words">
-    <h5 className="card-title">Form</h5>
-    <div className="mt-6">
-      <div className="grid grid-cols-12 gap-30">
-        <div className="lg:col-span-6 col-span-12">
-          <div className="flex  flex-col gap-4">
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="name" value="Your Name" />
+    <div className="rounded-xl shadow-md bg-white dark:bg-darkgray p-6 w-full">
+      <h5 className="text-xl font-semibold mb-6 text-dark">Career History</h5>
+      <div className="flex flex-col gap-6">
+        {careerData.map((job, index) => (
+          <Card key={index} className="p-4 shadow-sm border border-border dark:border-darkborder">
+            <div className="flex items-start gap-4">
+              <div className="text-primary bg-primary/10 p-3 rounded-md">
+                <Icon icon={job.icon} width={24} height={24} />
               </div>
-              <TextInput
-                id="name"
-                type="text"
-                placeholder="Your Name"
-                required
-                className="form-control form-rounded-xl"
-              />
-            </div>
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="email1" value="Your email" />
+              <div>
+                <h6 className="font-semibold text-dark">{job.role}</h6>
+                <p className="text-sm text-gray-500">
+                  {job.company} • <span>{job.duration}</span>
+                </p>
+                <p className="mt-2 text-gray-700 dark:text-gray-300 text-sm">{job.description}</p>
               </div>
-              <TextInput
-                id="email1"
-                type="email"
-                placeholder="name@matdash.com"
-                required
-                className="form-control form-rounded-xl"
-              />
             </div>
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="password1" value="Your password" />
-              </div>
-              <TextInput
-                id="password1"
-                type="password"
-                required
-                className="form-control form-rounded-xl"
-              />
-            </div>
-          
-          </div>
-        </div>
-        <div className="lg:col-span-6 col-span-12">
-          <div className="flex  flex-col gap-4">
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="countries1" value="Country" />
-              </div>
-              <Select id="countries1" required className="select-rounded">
-                <option>India</option>
-                <option>Canada</option>
-                <option>France</option>
-                <option>Germany</option>
-              </Select>
-            </div>
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="countries2" value="State" />
-              </div>
-              <Select id="countries2" required className="select-rounded">
-                <option>Delhi</option>
-                <option>Gujarat</option>
-                <option>Mumbai</option>
-                <option>Chennai</option>
-              </Select>
-            </div>
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="countries3" value="City" />
-              </div>
-              <Select id="countries3" required className="select-rounded">
-                <option>Rajkot</option>
-                <option>Ahemedabad</option>
-              </Select>
-            </div>
-          </div>
-        </div>
-        <div className="col-span-12 flex gap-3">
-          <Button color={'primary'}>Submit</Button>
-          <Button color={'error'}>Cancel</Button>
-        </div>
+          </Card>
+        ))}
       </div>
     </div>
-  </div>
-  )
-}
+  );
+};
 
-export default BasicForm
+export default BasicForm;

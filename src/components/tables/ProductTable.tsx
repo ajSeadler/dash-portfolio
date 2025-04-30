@@ -1,162 +1,124 @@
+import { Badge, Dropdown, Progress } from 'flowbite-react';
+import { HiOutlineDotsVertical } from 'react-icons/hi';
+import { Icon } from '@iconify/react';
 
-import { Badge, Dropdown, Progress } from "flowbite-react";
-import { HiOutlineDotsVertical } from "react-icons/hi";
-import { Icon } from "@iconify/react";
-import { Table } from "flowbite-react";
+import seshImage from '/src/assets/images/skate-social.png';
+import okcsImage from '/src/assets/images/okcs.png';
+import cImage from 'src/assets/images/C.png';
 
-import product1 from "/src/assets/images/products/dash-prd-1.jpg";
-import product2 from "/src/assets/images/products/dash-prd-2.jpg";
-import product3 from "/src/assets/images/products/dash-prd-3.jpg";
-import product4 from "/src/assets/images/products/dash-prd-4.jpg";
+const projectData = [
+  {
+    img: seshImage,
+    name: 'sesh.',
+    owner: 'React Native | Express.js | Postgres',
+    process: '100%',
+    statusColor: 'text-success',
+    statusBg: 'bg-lightsuccess',
+    statusText: 'Complete',
+  },
+  {
+    img: okcsImage,
+    name: 'OK Clean Skateparks',
+    owner: 'React | Tailwind | Vite',
+    process: '100%',
+    statusColor: 'text-success',
+    statusBg: 'bg-lightsuccess',
+    statusText: 'Complete',
+  },
+  {
+    img: seshImage,
+    name: 'Circle of Fifths Viewer',
+    owner: 'React.js',
+    process: '75%',
+    statusColor: 'text-secondary',
+    statusBg: 'bg-lightsecondary',
+    statusText: 'In Progress',
+  },
+  {
+    img: cImage,
+    name: 'Password Generator',
+    owner: 'C#',
+    process: '100%',
+    statusColor: 'text-success',
+    statusBg: 'bg-lightsuccess',
+    statusText: 'Finished Program',
+    link: '#',
+  },
+];
 
-
-
+const actionItems = [
+  {
+    icon: 'solar:link-circle-outline',
+    label: 'View Project',
+  },
+  {
+    icon: 'solar:pen-new-square-broken',
+    label: 'Edit Details',
+  },
+  {
+    icon: 'solar:trash-bin-minimalistic-outline',
+    label: 'Delete',
+  },
+];
 
 const ProductTable = () => {
-  const ProductTableData = [
-    {
-      img: product1,
-      name: "iPhone 13 pro max-Pacific Blue-128GB storage",
-      payment: "$180",
-      paymentstatus: "Partially paid",
-      process: 45,
-      processcolor: "bg-warning",
-      statuscolor: "secondary",
-      statustext: "Confirmed",
-    },
-    {
-      img: product2,
-      name: "Apple MacBook Pro 13 inch-M1-8/256GB-space",
-      payment: "$120",
-      paymentstatus: "Full paid",
-      process: 100,
-      processcolor: "bg-success",
-      statuscolor: "success",
-      statustext: "Confirmed",
-    },
-    {
-      img: product3,
-      name: "PlayStation 5 DualSense Wireless Controller",
-      payment: "$120",
-      paymentstatus: "Cancelled",
-      process: 100,
-      processcolor: "bg-error",
-      statuscolor: "error",
-      statustext: "Cancelled",
-    },
-    {
-      img: product4,
-      name: "Amazon Basics Mesh, Mid-Back, Swivel Office",
-      payment: "$120",
-      paymentstatus: "Partially paid",
-      process: 45,
-      processcolor: "bg-warning",
-      statuscolor: "secondary",
-      statustext: "Confirmed",
-    },
-  ];
-
-  /*Table Action*/
-  const tableActionData = [
-    {
-      icon: "solar:add-circle-outline",
-      listtitle: "Add",
-    },
-    {
-      icon: "solar:pen-new-square-broken",
-      listtitle: "Edit",
-    },
-    {
-      icon: "solar:trash-bin-minimalistic-outline",
-      listtitle: "Delete",
-    },
-  ];
-
   return (
-    <>
-      <div className="rounded-xl dark:shadow-dark-md shadow-md bg-white dark:bg-darkgray p-6  relative w-full break-words">
-        <h5 className="card-title">Table</h5>
-        <div className="mt-3">
-         
-            <div className="overflow-x-auto">
-              <Table hoverable>
-                <Table.Head>
-                  <Table.HeadCell className="p-6">Products</Table.HeadCell>
-                  <Table.HeadCell>Payment</Table.HeadCell>
-                  <Table.HeadCell>Status</Table.HeadCell>
-                  <Table.HeadCell></Table.HeadCell>
-                </Table.Head>
-                <Table.Body className="divide-y divide-border dark:divide-darkborder ">
-                  {ProductTableData.map((item, index) => (
-                    <Table.Row key={index}>
-                      <Table.Cell className="whitespace-nowrap ps-6">
-                        <div className="flex gap-3 items-center">
-                          <img
-                            src={item.img}
-                            alt="icon"
-                            className="h-[60px] w-[60px] rounded-md"
-                          />
-                          <div className="truncat line-clamp-2 sm:text-wrap max-w-56">
-                            <h6 className="text-sm">{item.name}</h6>
-                          </div>
-                        </div>
-                      </Table.Cell>
-                      <Table.Cell>
-                        <h5 className="text-base text-wrap">
-                          {item.payment}
-                          <span className="text-dark opacity-70">
-                            <span className="mx-1">/</span>499
-                          </span>
-                        </h5>
-                        <div className="text-sm font-medium text-dark opacity-70 mb-2 text-wrap">
-                          {item.paymentstatus}
-                        </div>
-                        <div className="me-5">
-                          <Progress
-                            progress={item.process}
-                            color={`${item.processcolor}`}
-                            className={`${item.processcolor}`}
-                            size={"sm"}
-                          />
-                        </div>
-                      </Table.Cell>
-                      <Table.Cell>
-                        <Badge
-                          color={`light${item.statuscolor}`}
-                          className={`text-${item.statuscolor}`}
-                        >
-                          {item.statustext}
-                        </Badge>
-                      </Table.Cell>
-                      <Table.Cell>
-                        <Dropdown
-                          label=""
-                          dismissOnClick={false}
-                          renderTrigger={() => (
-                            <span className="h-9 w-9 flex justify-center items-center rounded-full hover:bg-lightprimary hover:text-primary cursor-pointer">
-                              <HiOutlineDotsVertical size={22} />
-                            </span>
-                          )}
-                        >
-                          {tableActionData.map((items, index) => (
-                            <Dropdown.Item key={index} className="flex gap-3">
-                              {" "}
-                              <Icon icon={`${items.icon}`} height={18} />
-                              <span>{items.listtitle}</span>
-                            </Dropdown.Item>
-                          ))}
-                        </Dropdown>
-                      </Table.Cell>
-                    </Table.Row>
-                  ))}
-                </Table.Body>
-              </Table>
+    <section className="w-full px-4 py-10">
+      <h2 className="text-2xl font-semibold text-neutral-900 mb-6">My Projects</h2>
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {projectData.map((project, index) => (
+          <div
+            key={index}
+            className="relative group rounded-2xl bg-white dark:bg-darkgray shadow-sm transition hover:shadow-lg p-5 flex flex-col justify-between"
+          >
+            <div className="flex items-center gap-4 mb-4">
+              <img
+                src={project.img}
+                alt={project.name}
+                className="w-16 h-16 rounded-md object-cover border border-gray-200"
+              />
+              <div className="flex-1">
+                <h3 className="text-lg font-medium text-neutral-900">{project.name}</h3>
+                <p className="text-sm text-gray-500 mt-1">{project.owner}</p>
+              </div>
+              <Dropdown
+                label=""
+                dismissOnClick={false}
+                renderTrigger={() => (
+                  <span className="h-9 w-9 flex justify-center items-center rounded-full hover:bg-lightprimary hover:text-primary cursor-pointer">
+                    <HiOutlineDotsVertical size={20} />
+                  </span>
+                )}
+              >
+                {actionItems.map((action, i) => (
+                  <Dropdown.Item key={i} className="flex gap-3 items-center">
+                    <Icon icon={action.icon} height={18} />
+                    <span>{action.label}</span>
+                  </Dropdown.Item>
+                ))}
+              </Dropdown>
             </div>
-         
-        </div>
+
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-sm text-gray-600">
+                <span>Progress</span>
+                <span className="text-neutral-800">{project.process}</span>
+              </div>
+              <Progress progress={parseInt(project.process)} size="sm" className="rounded-full" />
+              <div className="mt-2">
+                <Badge
+                  color={project.statusBg}
+                  className={`${project.statusColor} font-medium text-sm`}
+                >
+                  {project.statusText}
+                </Badge>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
-    </>
+    </section>
   );
 };
 
-export  {ProductTable};
+export { ProductTable };

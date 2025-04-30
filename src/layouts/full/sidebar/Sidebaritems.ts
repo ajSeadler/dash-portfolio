@@ -34,7 +34,7 @@ const SidebarContent: MenuItem[] = [
     ],
   },
   {
-    heading: 'UTILITIES',
+    heading: 'PROFESSIONAL STUFF',
     children: [
       {
         name: 'Github',
@@ -44,43 +44,43 @@ const SidebarContent: MenuItem[] = [
       },
       {
         name: 'Portfolio',
-        icon: 'solar:programming-line-duotone',
+        icon: 'solar:programming-outline',
         id: uniqueId(),
         url: '/ui/table',
       },
       {
-        name: 'Form',
-        icon: 'solar:password-minimalistic-outline',
+        name: 'Career',
+        icon: 'solar:case-outline',
         id: uniqueId(),
         url: '/ui/form',
       },
       {
-        name: 'Shadow',
-        icon: 'solar:airbuds-case-charge-outline',
+        name: 'Education',
+        icon: 'solar:book-outline',
         id: uniqueId(),
         url: '/ui/shadow',
       },
     ],
   },
+  // {
+  //   heading: 'AUTH',
+  //   children: [
+  //     {
+  //       name: 'Login',
+  //       icon: 'solar:login-2-linear',
+  //       id: uniqueId(),
+  //       url: '/auth/login',
+  //     },
+  //     {
+  //       name: 'Register',
+  //       icon: 'solar:shield-user-outline',
+  //       id: uniqueId(),
+  //       url: '/auth/register',
+  //     },
+  //   ],
+  // },
   {
-    heading: 'AUTH',
-    children: [
-      {
-        name: 'Login',
-        icon: 'solar:login-2-linear',
-        id: uniqueId(),
-        url: '/auth/login',
-      },
-      {
-        name: 'Register',
-        icon: 'solar:shield-user-outline',
-        id: uniqueId(),
-        url: '/auth/register',
-      },
-    ],
-  },
-  {
-    heading: 'EXTRA',
+    heading: 'FUN STUFF',
     children: [
       {
         name: 'Icons',

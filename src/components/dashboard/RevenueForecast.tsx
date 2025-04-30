@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Select } from 'flowbite-react';
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts';
+import { FaGithub } from 'react-icons/fa';
 
 const GITHUB_USERNAME = 'ajSeadler';
 
@@ -109,7 +110,12 @@ const RevenueForecast = () => {
   return (
     <div className="rounded-xl dark:shadow-dark-md shadow-md bg-white dark:bg-darkgray p-6 relative w-full break-words">
       <div className="flex justify-between items-center mb-4">
-        <h5 className="card-title">GitHub Commits (Last 14 Days)</h5>
+        <div className="flex items-center gap-4 mb-8 px-6">
+          <div className="bg-secondary text-gray-800 p-3 rounded-md">
+            <FaGithub size={24} />
+          </div>
+          <p className="text-lg font-semibold text-primary">Github Commits</p>
+        </div>
         <Select
           id="periods"
           className="select-md"

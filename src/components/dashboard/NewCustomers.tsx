@@ -42,16 +42,16 @@ const NewCustomers = () => {
   return (
     <div className="bg-white rounded-xl shadow-md p-8">
       <div className="flex items-center gap-4 mb-8">
-        <div className="bg-gray-100 text-primary p-3 rounded-md">
+        <div className="bg-secondary text-primary p-3 rounded-md">
           <Icon icon="mdi:code-tags" height={24} />
         </div>
-        <p className="text-lg text-dark font-semibold">Top Languages</p>
+        <p className="text-lg text-dark font-semibold">Top Languages Used</p>
       </div>
 
       {isLoading ? (
         <p className="text-sm text-gray-500">Loading languages...</p>
       ) : sortedLanguages.length === 0 ? (
-        <p className="text-sm text-gray-500">No languages found.</p>
+        <p className="text-sm text-gray-500">No languages found. Please try again later.</p>
       ) : (
         <div className="space-y-6">
           {sortedLanguages.map(([language, count]) => {
@@ -63,7 +63,7 @@ const NewCustomers = () => {
                   <p className="text-sm text-dark">{language}</p>
                   <p className="text-sm text-dark">{percent}%</p>
                 </div>
-                <Progress progress={Number(percent)} color="primary" />
+                <Progress progress={Number(percent)} color="secondary" />
               </div>
             );
           })}
