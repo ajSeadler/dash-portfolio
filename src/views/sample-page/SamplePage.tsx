@@ -1,21 +1,27 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { FaPlay } from 'react-icons/fa';
+import { FaPlay, FaUtensils } from 'react-icons/fa';
 import { initFood, initBots, handleRestart } from 'src/game/gameLogic.ts';
 import { GAME_SETTINGS } from 'src/types/types.ts';
+import { FaMousePointer, FaDotCircle, FaCompressAlt, FaSkullCrossbones } from 'react-icons/fa';
 
 const Solar: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const playerRef = useRef({ x: GAME_SETTINGS.worldWidth / 2, y: GAME_SETTINGS.worldHeight / 2 });
+  const playerRef = useRef({
+    x: GAME_SETTINGS.worldWidth / 2,
+    y: GAME_SETTINGS.worldHeight / 2,
+  });
   const [mass, setMass] = useState(GAME_SETTINGS.initialMass);
   const massRef = useRef<any>(mass);
   const [gameOver, setGameOver] = useState(false);
   const [started, setStarted] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(null);
+  const [selectedColor, setSelectedColor] = useState<string>('#22D3EE');
 
   const foodRef = useRef(initFood());
   const botsRef = useRef(initBots());
   const mouseRef = useRef({ x: 0, y: 0 });
 
+  // Countdown timer
   useEffect(() => {
     if (countdown === null) return;
     if (countdown === 0) {
@@ -23,11 +29,11 @@ const Solar: React.FC = () => {
       setStarted(true);
       return;
     }
-
-    const timer = setTimeout(() => setCountdown((prev) => (prev ?? 1) - 1), 1000);
+    const timer = setTimeout(() => setCountdown((p) => (p ?? 1) - 1), 1000);
     return () => clearTimeout(timer);
   }, [countdown]);
 
+  // Main game loop
   useEffect(() => {
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext('2d')!;
@@ -50,17 +56,20 @@ const Solar: React.FC = () => {
       const playerRadius = Math.sqrt(currentMass) * 5;
       const playerSpeed = GAME_SETTINGS.baseSpeed / (Math.sqrt(currentMass) * 0.1);
 
+      // Move player toward mouse
       const dxP = mouseRef.current.x - width / 2;
       const dyP = mouseRef.current.y - height / 2;
       const distP = Math.hypot(dxP, dyP) || 1;
       player.x += (dxP / distP) * playerSpeed;
       player.y += (dyP / distP) * playerSpeed;
 
+      // Clear & center world
       ctx.fillStyle = '#111827';
       ctx.fillRect(0, 0, width, height);
       ctx.save();
       ctx.translate(width / 2 - player.x, height / 2 - player.y);
 
+      // Draw & eat food
       for (let i = foodRef.current.length - 1; i >= 0; i--) {
         const f = foodRef.current[i];
         const d = Math.hypot(f.x - player.x, f.y - player.y);
@@ -76,6 +85,7 @@ const Solar: React.FC = () => {
         ctx.fill();
       }
 
+      // Bots logic & drawing
       for (let i = botsRef.current.length - 1; i >= 0; i--) {
         const bot = botsRef.current[i];
         bot.radius = Math.sqrt(bot.mass) * 5;
@@ -105,14 +115,15 @@ const Solar: React.FC = () => {
         bot.x += Math.cos(ang) * speed;
         bot.y += Math.sin(ang) * speed;
 
-        const canvasWidth = canvas.width;
-        const canvasHeight = canvas.height;
-
+        // Keep bots within world bounds
         if (bot.x - bot.radius < 0) bot.x = bot.radius;
-        if (bot.x + bot.radius > canvasWidth) bot.x = canvasWidth - bot.radius;
+        if (bot.x + bot.radius > GAME_SETTINGS.worldWidth)
+          bot.x = GAME_SETTINGS.worldWidth - bot.radius;
         if (bot.y - bot.radius < 0) bot.y = bot.radius;
-        if (bot.y + bot.radius > canvasHeight) bot.y = canvasHeight - bot.radius;
+        if (bot.y + bot.radius > GAME_SETTINGS.worldHeight)
+          bot.y = GAME_SETTINGS.worldHeight - bot.radius;
 
+        // Bot eats food
         for (let j = foodRef.current.length - 1; j >= 0; j--) {
           const f = foodRef.current[j];
           if (Math.hypot(f.x - bot.x, f.y - bot.y) < f.radius + bot.radius) {
@@ -121,6 +132,18 @@ const Solar: React.FC = () => {
           }
         }
 
+        // Bot eats other bots
+        for (let j = botsRef.current.length - 1; j >= 0; j--) {
+          const other = botsRef.current[j];
+          if (i !== j && Math.hypot(bot.x - other.x, bot.y - other.y) < bot.radius + other.radius) {
+            if (bot.mass > other.mass * 1.1) {
+              botsRef.current.splice(j, 1);
+              bot.mass += other.mass;
+            }
+          }
+        }
+
+        // Player vs Bot collision
         if (dToPlayer < bot.radius + playerRadius) {
           if (bot.mass > massRef.current * 1.1) {
             setGameOver(true);
@@ -133,15 +156,33 @@ const Solar: React.FC = () => {
           }
         }
 
+        // Draw bot
         ctx.beginPath();
         ctx.arc(bot.x, bot.y, bot.radius, 0, Math.PI * 2);
-        ctx.fillStyle = '#9CA3AF';
+        ctx.fillStyle = bot.mass < massRef.current ? '#34D399' : '#F87171'; // green if smaller, red if larger
         ctx.fill();
+
+        // Bot label
+        const label = 'Bot';
+        ctx.font = 'bold 14px sans-serif';
+        const textW = ctx.measureText(label).width;
+        const pad = 6;
+        ctx.fillStyle = 'rgba(17, 24, 39, 0.8)';
+        ctx.fillRect(bot.x - textW / 2 - pad / 2, bot.y - bot.radius - 24, textW + pad, 20);
+        ctx.fillStyle = '#F3F4F6';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(label, bot.x, bot.y - bot.radius - 14);
       }
 
+      // ─── Player draw: rotate sprite to face movement ─────────────────
+      const curMass = massRef.current;
+      const radius = Math.sqrt(curMass) * 5;
+      // angle to mouse in world coords:
+
       ctx.beginPath();
-      ctx.arc(player.x, player.y, playerRadius, 0, Math.PI * 2);
-      ctx.fillStyle = '#22D3EE';
+      ctx.arc(player.x, player.y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = selectedColor;
       ctx.fill();
 
       ctx.restore();
@@ -153,7 +194,7 @@ const Solar: React.FC = () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener('resize', resize);
     };
-  }, [started, gameOver]);
+  }, [started, gameOver, selectedColor]);
 
   return (
     <div className="relative max-w-screen mx-auto px-8 py-4 bg-gray-900 rounded-2xl shadow-xl overflow-hidden">
@@ -170,7 +211,6 @@ const Solar: React.FC = () => {
           </a>{' '}
           Clone
         </h5>
-
         <h2 className="mt-1 text-2xl font-bold text-white mb-3">A Quick Game</h2>
       </div>
       <div className="w-full h-full relative bg-primary rounded-xl overflow-hidden">
@@ -211,9 +251,61 @@ const Solar: React.FC = () => {
           </div>
         )}
 
-        {/* Initial Start Button */}
+        {/* Initial Start Screen */}
         {!started && countdown === null && (
-          <div className="absolute inset-0 z-20 flex items-center justify-center bg-gray-900">
+          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-8 bg-gray-900">
+            {/* Game Rules */}
+            <div className="w-full max-w-md bg-neutral-200 border border-neutral-300 rounded-2xl p-6 shadow-2xl">
+              <h3 className="text-primary text-lg font-semibold mb-5 tracking-wide">How to Play</h3>
+              <div className="space-y-4 text-sm text-gray-600">
+                <div className="flex gap-3 items-start">
+                  <FaMousePointer className="text-primary w-4 h-4 mt-1" />
+                  <p>Move your circle using the mouse cursor.</p>
+                </div>
+                <div className="flex gap-3 items-start">
+                  <FaDotCircle className="text-primary w-4 h-4 mt-1" />
+                  <p>Collect gray dots to increase your mass.</p>
+                </div>
+                <div className="flex gap-3 items-start">
+                  <FaUtensils className="text-primary w-4 h-4 mt-1" />
+                  <p>Eat smaller bots (green). Avoid larger ones (red).</p>
+                </div>
+                <div className="flex gap-3 items-start">
+                  <FaCompressAlt className="text-primary w-4 h-4 mt-1" />
+                  <p>
+                    Use <span className="text-secondary font-medium">Split</span> to halve your mass
+                    and make fast moves.
+                  </p>
+                </div>
+                <div className="flex gap-3 items-start">
+                  <FaSkullCrossbones className="text-primary w-4 h-4 mt-1" />
+                  <p>If you're eaten by a bigger bot, it's game over.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Color Picker */}
+            <div className="flex flex-col items-center gap-4">
+              <h2 className="text-lg font-semibold text-gray-200 tracking-wide">
+                Choose Your Color
+              </h2>
+              <div className="flex gap-4">
+                {['#22D3EE', '#F87171', '#FACC15', '#34D399', '#818CF8'].map((color) => (
+                  <button
+                    key={color}
+                    onClick={() => setSelectedColor(color)}
+                    className={`w-10 h-10 rounded-full border-2 transition-transform ${
+                      selectedColor === color
+                        ? 'ring-4 ring-white scale-110'
+                        : 'opacity-80 hover:scale-105'
+                    }`}
+                    style={{ backgroundColor: color }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Start Button */}
             <button
               onClick={() => setCountdown(3)}
               className="px-6 py-3 bg-green-500 text-white text-lg font-semibold rounded-xl shadow-lg hover:opacity-90 transition"

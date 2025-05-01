@@ -34,7 +34,17 @@ const Solar = () => {
         className="space-y-4"
       >
         <div>
-          <h5 className="text-gray-400 uppercase text-xs tracking-widest">Via Reddit</h5>
+          <h5 className="text-gray-400 uppercase text-xs tracking-widest">
+            Via{' '}
+            <a
+              href="https://reddit.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-200 underline underline-offset-4 decoration-secondary hover:text-secondary transition-colors"
+            >
+              Reddit
+            </a>
+          </h5>
           <h2 className="mt-1 text-2xl font-bold text-white">A Quick Laugh</h2>
         </div>
 

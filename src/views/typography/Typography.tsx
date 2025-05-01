@@ -71,11 +71,11 @@ const Typography = () => {
         ].map((item, i) => (
           <div
             key={i}
-            className="bg-primary border border-gray-200 rounded-xl shadow-sm p-5 flex flex-col items-center text-center"
+            className="bg-gray-50 border border-gray-200 rounded-xl shadow-sm p-5 flex flex-col items-center text-center"
           >
             <item.icon className="w-8 h-8 text-secondary mb-2" />
-            <h3 className="text-base font-medium text-neutral-200">{item.label}</h3>
-            <p className="text-2xl font-bold text-white mt-1">{isLoading ? '...' : item.value}</p>
+            <h3 className="text-base font-medium text-neutral-900">{item.label}</h3>
+            <p className="text-2xl font-bold text-primary mt-1">{isLoading ? '...' : item.value}</p>
           </div>
         ))}
       </div>
