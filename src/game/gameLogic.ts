@@ -1,4 +1,5 @@
 import { Food, Bot, GAME_SETTINGS } from '../types/types';
+import React from 'react';
 
 export const initFood = (): Food[] => {
   return Array.from({ length: GAME_SETTINGS.foodCount }, () => ({
@@ -27,12 +28,15 @@ export const initBots = (): Bot[] => {
 export const handleRestart = (
   setMass: React.Dispatch<React.SetStateAction<number>>,
   setGameOver: React.Dispatch<React.SetStateAction<boolean>>,
-  playerRef: React.RefObject<{ x: number; y: number }>,
-  massRef: React.RefObject<number>,
+  playerRef: React.MutableRefObject<{ x: number; y: number }>,
+  massRef: React.MutableRefObject<number>,
   initFood: () => Food[],
   initBots: () => Bot[],
 ) => {
-  playerRef.current = { x: GAME_SETTINGS.worldWidth / 2, y: GAME_SETTINGS.worldHeight / 2 };
+  playerRef.current = {
+    x: GAME_SETTINGS.worldWidth / 2,
+    y: GAME_SETTINGS.worldHeight / 2,
+  };
   massRef.current = GAME_SETTINGS.initialMass;
   setMass(GAME_SETTINGS.initialMass);
   initFood();
