@@ -7,7 +7,7 @@ interface Commit {
   url: string;
 }
 
-const DailyActivity = () => {
+const GithubActivity = () => {
   const [commits, setCommits] = useState<Commit[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -62,7 +62,7 @@ const DailyActivity = () => {
   return (
     <div className="rounded-xl dark:shadow-dark-md shadow-md bg-white dark:bg-darkgray p-6 relative w-full break-words">
       <div className="flex items-center gap-4 mb-8 px-0">
-        <div className="bg-secondary text-gray-800 p-3 rounded-md">
+        <div className="bg-secondary text-primary p-3 rounded-md">
           <FaCodeBranch size={24} />
         </div>
         <p className="text-lg font-semibold text-primary">Recent GitHub Activity</p>
@@ -102,4 +102,4 @@ const DailyActivity = () => {
   );
 };
 
-export default DailyActivity;
+export default GithubActivity;

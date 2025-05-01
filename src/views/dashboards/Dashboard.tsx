@@ -1,33 +1,33 @@
 import { Link } from 'react-router';
 import BlogCards from 'src/components/dashboard/BlogCards';
-import DailyActivity from 'src/components/dashboard/DailyActivity';
-import NewCustomers from 'src/components/dashboard/NewCustomers';
-import ProductRevenue from 'src/components/dashboard/ProductRevenue';
-import { RevenueForecast } from 'src/components/dashboard/RevenueForecast';
-import TotalIncome from 'src/components/dashboard/TotalIncome';
+import GithubActivity from 'src/components/dashboard/GithubActivity';
+import TopLanguages from 'src/components/dashboard/TopLanguages';
+import Portfolio from 'src/components/dashboard/Portfolio';
+import SocialCard from 'src/components/dashboard/SocialCard';
+import GithubCommits from 'src/components/dashboard/GithubCommits';
 
 const Dashboard = () => {
   return (
     <div className="grid grid-cols-12 gap-30">
       <div className="lg:col-span-8 col-span-12">
-        <ProductRevenue />
+        <Portfolio />
       </div>
       <div className="lg:col-span-4 col-span-12">
         <div className="grid grid-cols-12 h-full items-stretch">
           <div className="col-span-12 mb-30">
-            <NewCustomers />
+            <TopLanguages />
           </div>
           <div className="col-span-12">
-            <TotalIncome />
+            <SocialCard />
           </div>
         </div>
       </div>
       <div className="lg:col-span-8 col-span-12">
-        <RevenueForecast />
+        <GithubCommits />
       </div>
 
       <div className="lg:col-span-4 col-span-12 flex">
-        <DailyActivity />
+        <GithubActivity />
       </div>
       <div className="col-span-12">
         <BlogCards />

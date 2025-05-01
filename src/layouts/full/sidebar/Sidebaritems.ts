@@ -83,14 +83,14 @@ const SidebarContent: MenuItem[] = [
     heading: 'FUN STUFF',
     children: [
       {
-        name: 'Icons',
+        name: 'A Quick Laugh',
         icon: 'solar:smile-circle-outline',
         id: uniqueId(),
         url: '/icons/solar',
       },
       {
-        name: 'Sample Page',
-        icon: 'solar:notes-minimalistic-outline',
+        name: 'A Quick Game',
+        icon: 'solar:gamepad-outline',
         id: uniqueId(),
         url: '/sample-page',
       },

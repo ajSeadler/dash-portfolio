@@ -6,7 +6,7 @@ interface LanguageData {
   [language: string]: number;
 }
 
-const NewCustomers = () => {
+const TopLanguages = () => {
   const [languages, setLanguages] = useState<LanguageData>({});
   const [isLoading, setIsLoading] = useState(true);
 
@@ -73,4 +73,4 @@ const NewCustomers = () => {
   );
 };
 
-export default NewCustomers;
+export default TopLanguages;

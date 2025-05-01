@@ -1,7 +1,7 @@
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import skatePic from 'src/assets/images/bs-night.jpg';
 
-const TotalIncome = () => {
+const SocialCard = () => {
   return (
     <div
       className="relative rounded-xl shadow-md p-6 text-white bg-cover bg-center h-44 w-full"
@@ -41,4 +41,4 @@ const TotalIncome = () => {
   );
 };
 
-export default TotalIncome;
+export default SocialCard;
