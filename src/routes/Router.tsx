@@ -54,5 +54,5 @@ const Router = [
   },
 ];
 
-const router = createBrowserRouter(Router, { basename: '/ajseadler' });
+const router = createBrowserRouter(Router, { basename: '/' });
 export default router;
