@@ -73,7 +73,7 @@ const TopLanguages = () => {
           color: '#111827',
           font: {
             size: 14,
-            weight: 'bold', // ✅ fixed type error
+            weight: 700, // ✅ fixed type error (was 'bold')
           },
           usePointStyle: true,
           padding: 20,
