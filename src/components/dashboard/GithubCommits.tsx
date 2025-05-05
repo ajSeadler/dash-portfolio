@@ -107,7 +107,7 @@ const GithubCommits: React.FC = () => {
   };
 
   return (
-    <div className="rounded-xl bg-white dark:bg-darkgray shadow-md dark:shadow-lg p-6 w-full transition-all duration-300 border border-gray-200 dark:border-neutral-800">
+    <div className="rounded-xl bg-white dark:bg-darkgray shadow-xl dark:shadow-lg p-6 w-full transition-all duration-300 border border-gray-200 dark:border-neutral-800">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <div className="bg-secondary text-gray-800 dark:text-white p-2 rounded-md shadow-inner">

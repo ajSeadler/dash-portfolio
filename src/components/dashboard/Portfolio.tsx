@@ -9,7 +9,7 @@ const Portfolio = () => {
 
   return (
     <>
-      <div className="bg-white dark:bg-darkgray rounded-xl shadow-md p-6 w-full">
+      <div className="bg-white dark:bg-darkgray rounded-xl shadow-xl p-6 w-full">
         <div className="flex items-center gap-4 mb-6">
           <div className="bg-secondary text-gray-800 p-3 rounded-md">
             <Icon icon="solar:case-outline" height={24} />

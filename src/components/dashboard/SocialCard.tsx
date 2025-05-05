@@ -4,7 +4,7 @@ import skatePic from 'src/assets/images/bs-night.jpg';
 const SocialCard = () => {
   return (
     <div
-      className="relative rounded-xl shadow-md p-6 text-white bg-cover bg-center h-44 w-full"
+      className="relative rounded-xl shadow-xl p-6 text-white bg-cover bg-center h-44 w-full"
       style={{ backgroundImage: `url(${skatePic})` }}
     >
       {/* Top-left Title */}

@@ -60,7 +60,7 @@ const GithubActivity = () => {
   }, []);
 
   return (
-    <div className="rounded-xl dark:shadow-dark-md shadow-md bg-white dark:bg-darkgray p-6 relative w-full break-words">
+    <div className="rounded-xl dark:shadow-dark-md shadow-xl bg-white dark:bg-darkgray p-6 relative w-full break-words">
       <div className="flex items-center gap-4 mb-8 px-0">
         <div className="bg-secondary text-primary p-3 rounded-md">
           <FaCodeBranch size={24} />
